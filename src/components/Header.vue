@@ -9,6 +9,9 @@
                 <li>
                     <router-link to="/" class="text-white">메인 화면</router-link>
                 </li>
+                <li v-if="$store.state.account.id">
+                    <router-link to="/orders" class="text-white">주문 내역</router-link>
+                </li>
                 <li>
                     <router-link to="/login" class="text-white" v-if=!$store.state.account.id>로그인</router-link>
                     <a to="/login" class="text-white" @click="logout()" v-else>로그아웃</a>
@@ -38,15 +41,17 @@
 <script>
 import store from "@/scripts/store";
 import router from "@/scripts/router";
+import axios from "axios";
 
 export default {
   name: 'Header',
   setup() {
-    const logout = ()=>{
+    const logout = () => {
+        axios.post("/api/account/logout").then(() => {
         store.commit('setAccount', 0);
-        sessionStorage.removeItem("id");
         window.alert("로그아웃 하였습니다.");
         router.push({path: "/"});
+        });
     }
   return {logout};
   }
@@ -54,6 +59,10 @@ export default {
 </script>
 
 <style scoped>
+header ul li a {
+    cursor: pointer;
+}
+
 header .navbar .cart{
     margin-left: auto;
     color:#fff;
