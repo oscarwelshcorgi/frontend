@@ -1,12 +1,15 @@
 <template>
       <div class="card shadow-sm">
-        <span class="img" :style="{backgroundImage: `url(${item.imgPath})`}"/>
+        <router-link to="/Detail" class="img" :style="{backgroundImage: `url(${item.imgPath})`}"/>
         <div class="card-body">
           <p class="card-text">
-            <span>{{item.name}} &nbsp;</span>
+            <router-link to="/Detail" style="text-decoration-line: none;" @click="itemId(item.id)">
+                {{item.name}} &nbsp;
+            </router-link>
             <span class="discount badge bg-danger">
             {{ item.discountPer }}%
             </span>
+            <button class="real text-danger" @click="itemId(item.id)"></button>
           </p>
 
           <div class="d-flex justify-content-between align-items-center">
@@ -27,6 +30,7 @@
 <script>
 import lib from "@/scripts/lib";
 import axios from "axios";
+import router from "@/scripts/router";
 
 export default {
     name:"Card",
@@ -36,11 +40,20 @@ export default {
     setup() {
         const addToCart = (itemId) => {
             axios.post(`/api/cart/items/${itemId}`).then(() => {
-                console.log('success')
+                console.log('success');
+                window.alert("장바구니에 추가되었습니다.");
             })
         };
 
-        return {lib, addToCart}
+        const itemId = (itemId) => {
+            axios.get(`/api/items/${itemId}`).then(() => {
+                console.log('success2');
+                window.alert("이동");
+                router.push({path: "/Detail"})
+            })
+        };
+
+        return {lib, addToCart, itemId}
     }
 }
 </script>

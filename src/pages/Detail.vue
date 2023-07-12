@@ -1,5 +1,5 @@
 <template>
-  <div class="orders">
+  <div class="items">
     <div class="container">
       <table class="table table-bordered">
         <thead>
@@ -12,9 +12,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(o, idx1) in state.orders" :key="idx1">
-          <td>{{ state.orders.length - idx1 }}</td>
-          <td>{{ o.name }}</td>
+        <tr v-for="(o, idx1) in state.items" :key="idx1">
+          <td>{{ state.items.length - idx1 }}</td>
+          <td>{{ o.id }}</td>
           <td>{{ o.address }}</td>
           <td>{{ o.payment }}</td>
           <td>
@@ -35,18 +35,18 @@ import lib from "@/scripts/lib";
 export default {
   setup() {
     const state = reactive({
-      orders: [],
+      items: [],
     })
 
-    axios.get("/api/orders").then(({data}) => {
-      state.orders = [];
+    axios.get("/api/items/${itemId}").then(({data}) => {
+      state.items = [];
 
       for (let d of data) {
         if (d.items) {
           d.items = JSON.parse(d.items);
         }
 
-        state.orders.push(d);
+        state.items.push(d);
       }
     })
 
