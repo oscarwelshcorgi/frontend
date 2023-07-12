@@ -45,9 +45,10 @@ export default {
             })
         };
 
-        const itemId = (itemId) => {
-            axios.get(`/api/items/${itemId}`).then(() => {
+        const itemId = (id) => {
+            axios.get(`/api/items/${id}`).then(() => {
                 console.log('success2');
+                console.log(`${id}`);
                 window.alert("이동");
                 router.push({path: "/Detail"})
             })

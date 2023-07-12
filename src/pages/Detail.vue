@@ -38,7 +38,7 @@ export default {
       items: [],
     })
 
-    axios.get("/api/items/${itemId}").then(({data}) => {
+    axios.get("/api/items/${id}").then(({data}) => {
       state.items = [];
 
       for (let d of data) {
