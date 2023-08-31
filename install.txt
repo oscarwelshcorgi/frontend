@@ -1,0 +1,5 @@
+1. node.js 설치
+2. npm install
+2. npm install -g @vue/cli
+3. 터미널 변경 File - Settings - Tools - Terminal - "Shell path: C:\Program Files\Git\bin\bash.exe -login -i"
+4.
